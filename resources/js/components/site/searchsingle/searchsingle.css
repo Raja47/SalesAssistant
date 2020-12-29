@@ -1,0 +1,224 @@
+.searhresultsingle h1, .searhresultsingle p {
+    display: block !important;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+
+.relatedimgs h2 {
+    display: block !important;
+    width: 100%;
+    text-align: left;
+}
+
+.searhresultsingleimg img {
+    width: auto;
+    margin-top: 20px;
+    box-shadow:
+  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+  0 12.5px 10px rgba(0, 0, 0, 0.06),
+  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+  0 100px 80px rgba(0, 0, 0, 0.12)
+}
+.searhresultsingleimg {
+    background: white;
+}
+
+
+
+.relatedimgs h2{
+    margin-top: 70px;
+    margin-bottom: 33px;
+    
+}
+
+
+.relatedimgs {
+    margin-bottom: 70px;
+}
+
+.searhresultsingle button.btn.btn-primary {
+    background: #f5b11f;
+    border-color: #f5b11f;
+    color: black;
+    padding: 12px;
+    text-shadow: 0 0 black;
+    margin-top: 8px;
+    padding: 6px 64px;
+    font-weight: 700;
+    font-size: 18px;
+    float: left;
+    
+    letter-spacing: 3px;
+        
+}
+
+.demo-button{
+     display: flex;
+  justify-content: center;
+  align-items: center;
+} 
+
+.badgemain h2 {
+    text-align: left;
+    margin-top: 0px;
+        font-weight: bold;
+}
+.badgemain {
+    text-align: left;
+}
+.badgemain .badge-secondary {
+    padding: 8px 8px;
+    font-size: 15px;
+    font-style: italic;
+    border-bottom: 0px solid gray;
+    border-radius: 0;
+    text-align: center;
+    color: white;
+    font-weight: 100;
+    background-color: #6c757d;
+    padding-left: 10px;
+}
+
+.searhresultsinglecontent p {
+    text-align: left;
+    /* line-height: 27px; */
+}
+.searhresultsinglecontent h2 {
+        text-align: left;
+    text-transform: capitalize;
+    font-weight: bold;
+    margin-top: 40px;
+    font-size: 22px;
+    line-height: 35px;
+}
+
+.numofdownloads {
+    background-color: #fafafa;
+    color: #666666;
+    margin-bottom: 20px;
+    padding: 6px 0px;
+    border-radius: 4px;
+    border: 1px solid #e1e8ed;
+    padding-left: 14px;
+    margin-top: 21px;
+}
+.numofdownloads p{
+    font-size: 22px;
+    line-height: 30px;
+}
+.numofdownloads p strong{
+    color: black;
+}
+
+.numofdownloads:nth-child(2) {
+    float: right;
+}
+.numofdownloads {
+    background-color: #fafafa;
+    color: #666666;
+    margin-bottom: 20px;
+    padding: 6px 0px;
+    border-radius: 4px;
+    border: 1px solid #e1e8ed;
+    padding-left: 12px;
+    margin-top: 12px;
+    width: 44%;
+    float: left;
+    margin-left: 6px;
+}
+
+.searhresultsingleimg.col-md-8 {
+    
+    overflow: hidden;
+    min-height: 100% !important;
+    height: 456px !IMPORTANT;
+}
+
+.singleresultfile .slidermain {
+    min-height: 200px;
+    padding: 0px 0;
+    height: 100%;
+    margin-bottom: 60px;
+}
+
+.singleresultfile .formfirstcontent.col-md-8 {
+    max-width: 100%;
+    padding: 0;
+}
+
+
+
+
+
+
+
+
+.search-single-content-div .searchresulttopbar.formfirstcontent input.select-search__input,
+.search-single-content-div .searchresulttopbar.formfirstcontent .form-control {
+    height: 70PX;
+}
+
+.search-single-content-div .searchresulttopbar .searchmain-home:after {
+    width: 65px;
+    height: 60px;
+    right: 23px;
+    top: 5px;
+}
+
+.search-single-content-div .searchresulttopbar.formfirstcontent svg.svg-inline--fa.fa-search.fa-w-16 {
+    font-size: 27px;
+    top: 24px;
+    right: 25px;
+}
+
+
+
+.search-single-content-div .slidermain.toppppp.row {
+     background: url(https://eworldclients.com/demo/library/public/images/resultbg.jpg) no-repeat center bottom;
+     margin-bottom: 25px;
+     background-size: 100% 100%;
+    }
+
+.search-single-content-div .searchresulttopbar.formfirstcontent.col-md-8 {
+    top: 0%;
+}
+
+.search-single-content-div .singleresultfile .slidermain {
+    min-height: 200px !important;
+}
+
+.searhresultsinglecontent h1 {
+    text-align: left;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 13px;
+}
+
+span.photodis p {
+    text-align: left;
+    padding-left: 10px;
+}
+
+.searhresultsingle button.btn.btn-primary:hover ,
+.searhresultsingle button.btn.btn-primary:focus {
+        background: #f5b11f !important;
+    border-color: #f5b11f !important;
+    color: black !important;
+}
+
+button.demo-button.rajaex-kk.btn.btn-primary {
+margin: 0 auto;
+text-align: center;
+display: inline-block;
+text-align: center;
+margin: 0 auto;
+align-items: center;
+justify-content: center;
+float: none;
+margin-top: 50px;
+padding: 6px 25px;
+}

@@ -1,0 +1,190 @@
+.searhresultsec h2, .searhresultsec p {
+    display: block !important;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.searhresultsec h2 {
+    margin-top: 50px;
+    margin-bottom: 8px;
+}
+
+.searhresultsec p {
+    margin-bottom: 50px;
+}
+.searhresultsec.row {
+    padding-left: 30px;
+    padding-right: 0px;
+}
+.searhresultsec .card {
+    position: relative;
+    margin-bottom: -30px !important;
+        background: transparent;
+    max-width: 705px;
+    width: 100%;
+}
+
+.searhresultsec .card:hover .card-body {
+    opacity: 1;
+    -webkit-transition: opacity .5s ease-in-out;
+    -moz-transition: opacity .5s ease-in-out;
+    -ms-transition: opacity .5s ease-in-out;
+    -o-transition: opacity .5s ease-in-out;
+    transition: opacity .5s ease-in-out;
+    cursor: pointer;
+}
+
+.searhresultsec .card-body {
+    background: rgb(0 0 0 / 57%);
+    color: white;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+        top: 34px;
+}
+
+
+.searhresultsec .card-body  button.btn.btn-primary {
+    background: #f5b11f;
+    border-color: #f5b11f;
+    color:white;
+}
+
+.searhresultsec .slidermain.row {
+     background: url(https://eworldclients.com/demo/library/public/images/searchbg.jpg) no-repeat center bottom;
+    width: 100%;
+    height: auto !important;
+    padding-top: initial;
+    min-height: 200px !important;
+        margin-bottom: 44px;
+        background-size: 100% 100%;
+}
+
+
+.searhresultsec .slidermain h1 {
+    display: none;
+}
+
+
+.searhresultsec .card-title.h5 {
+    position: absolute;
+    top: 13px;
+    left: 30px;
+    text-align: left;
+    text-overflow: ellipsis;
+    width: 78%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: visible;
+    color: white;
+    font-size: 18px;
+        text-transform: capitalize;
+    font-weight: 600;
+    max-width: 90%;
+}
+
+.searhresultsec .svg-inline--fa.fa-eye {
+    font-size: 27px;
+    position: absolute;
+    bottom: 45px;
+    right: 20px;
+    
+}
+
+.resultsearchmaindiv.row {
+    padding: 0px 45px;
+}
+
+.resultsearchmaindiv .col-md-3 {
+    padding-right: 0 !important;
+    padding-left: 8px !IMPORTANT;
+}
+
+.searhresultsec.row .video-react .video-react-big-play-button ,
+.searhresultsingleimg .video-react .video-react-big-play-button{ 
+    top: 50% !IMPORTANT;
+    left: 0px !IMPORTANT;
+    right: 0 !IMPORTANT;
+    margin: 0 auto !IMPORTANT;
+    display:none;
+}
+
+.searhresultsec.row .video-react-controls-enabled {
+    height: 239px !IMPORTANT;
+}
+
+.searhresultsec.row .video-react-has-started .video-react-control-bar{
+    display:none;
+}
+.img5555.video-kk {
+    width: 20%;
+    margin-bottom: -8px;
+    height: 100%;
+    min-height: 100% !IMPORTANT;
+}
+.searhresultsec .img-plugin-kk .card {margin-bottom: 4px !important;}
+.searhresultsec .img-plugin-kk .card img {transform: translateY(0);}
+.searhresultsec .img-plugin-kk .card-body {top: 0px;}
+.searhresultsec .video-kk .card {
+    max-width: 500px;
+    width: 100%;margin-bottom: 12px !important;height: 203px;}
+    
+
+
+.img5555.col-md-3 {
+    padding-right: 0 !IMPORTANT;
+    padding-left: 0px;
+    
+   
+}
+
+.img5555.col-md-auto {
+    flex: auto;
+     transition: all 1s ease-out;
+    padding: 0px 2px !important;
+}
+
+.paginationcustome ul.pagination {
+    align-items: center;
+    justify-content: center;
+}
+
+.loader-results {
+        padding-top: initial;
+    padding-bottom: initial;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: auto;
+    position: relative;
+    background: #f8fafc;
+    z-index: 9;
+}
+
+.loader-results .css-1vfkbnf {
+    
+    margin: 0 auto;
+   
+    margin-bottom: 800px;
+    
+}
+
+.loader-results .css-1vfkbnf .css-1vcocnp {
+    
+    border: 21.428571428571427px solid #fec20f;
+    opacity: 1.1;
+    
+}
+.feedback svg {
+    right: 150px;
+}
+
+
+
