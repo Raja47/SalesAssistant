@@ -17,6 +17,9 @@
             const api_url = "{{ config('app.url').'/api' }}";
             const app_url = "{{ config('app.url') }}";
             
+            const categories = JSON.parse('<?php echo json_encode(config("categories") ,JSON_FORCE_OBJECT); ?>');
+            const keywords = JSON.parse('<?php echo json_encode(config("keywords") ,JSON_FORCE_OBJECT); ?>');
+           
             function asset_url(){
                 return "{{ config('filesystems.disks.public.url') }}";
             }

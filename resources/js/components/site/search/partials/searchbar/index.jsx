@@ -12,6 +12,7 @@ import { suggestResourceAction }  from "../../../../../actions/resourceActions";
 
 
 
+
 class Searchbar extends Component {
 
   /**
@@ -22,24 +23,32 @@ class Searchbar extends Component {
   constructor(props) {
       super(props);
 
+      const rawOptions = [];
+      Object.entries(categories).map(([key, value]) => { rawOptions.push({value: value ,name:key }) });
+
+      const rawkeywords = [];
+      Object.entries(keywords).map(([key, value]) => { rawkeywords.push({value: value ,label:key }) });
+      
+      
+      
       this.state = {
           resources:[],
-          searchKeywords:"",
-          selectedType : '1',
+          inputValue:null,
+          searchKeywords:[{label: "All industries", value: "All industries"}],
+          selectedType : 1,
           searchedFor: [],
-          suggestions : [],
-          suggestedKeywords: [],
-          options: [
-            { value: '0',  name:'All Images'  },
-                { value: '1',  name:' Image Photo'  },
-                { value: '5',  name:' Image Vector'  },
-                { value: '6',  name:' Image Illustration'  },
-            { value: '2',  name:'Video'  },
-            { value: '3',  name:'plugin' },
-            { value: '4',  name:'Theme' },
-          ]  
+          suggestions : rawkeywords,
+          suggestedKeywords:rawkeywords,
+          options:rawOptions
       };
+
+    
+      
       var alreadyCalled = '';
+  }
+
+  componentDidMount() {
+  
   }
 
   /**
@@ -50,15 +59,11 @@ class Searchbar extends Component {
    */
   componentDidUpdate(prevProps) {
     
-    if(this.props.searchedFor !== prevProps.searchedFor){
-        this.setState({searchKeywords:{label:this.props.searchedFor.keywords,value:this.props.searchedFor.keywords},selectedType:this.props.searchedFor.type});
+    if(this.props.searchedFor !== prevProps.searchedFor ){
+        console.log(this.props.searchedFor.keywords);
+        this.setState({searchKeywords:this.props.searchedFor.keywords,selectedType:this.props.searchedFor.type});
     }
-    if (this.props.suggestions !== prevProps.suggestions) {
-        this.setState({suggestions:this.props.suggestions});
-    }
-    if (this.props.suggestedKeywords !== prevProps.suggestedKeywords) {
-        this.setState({suggestedKeywords:this.props.suggestedKeywords});
-    }
+  
   }
 
 
@@ -75,10 +80,11 @@ class Searchbar extends Component {
       handleChangeType = (e) => {
           
         this.setState({'selectedType':e});
-        const keywords = this.state.searchKeywords; 
-        if(keywords != "" && keywords != undefined ){
-            this.props.handler(e,keywords.value);
-        }
+        
+        // const keywords = this.state.searchKeywords; 
+        // if(keywords != "" && keywords != undefined ){
+        //     this.props.handler(e,keywords.value);
+        // }
       }
       
 
@@ -90,30 +96,37 @@ class Searchbar extends Component {
        */
 
       handleTypedKeywords = (e,action) => {
-        console.log(action.action);
+        // console.log(action.action);
+          this.setState({inputValue:e});
+          // if(action.action == 'set-value'){
+          //     console.log('action');
+          // }              
 
-        if( action.action == 'input-change'){
-            if( e === "" ){
-                this.setState({suggestedKeywords:[]});
-                this.setState({searchKeywords:{label:e , value:e}});
-            }else{
-                var { selectedType } = this.state;
-                clearTimeout(this.alreadyCalled);
-                this.alreadyCalled = setTimeout( () =>this.suggestions(selectedType,e) ,400);  
-                this.setState({searchKeywords:{label:e , value:e}});   
-            }
-        }
+          // }else{
+          //    console.log(e);
+          //    if(e.keyCode === 13 ){
+               
+          //       const {searchKeywords , selectedType } = this.state;
+          //       if(searchKeywords !== "" && searchKeywords != null && searchKeywords != [] && selectedType!= undefined && selectedType!= null && selectedType!= ""){
+          //           this.props.handler(selectedType,searchKeywords);
+          //       }
+          //     }
+          // }
+              
+             
+           
+      }
         
        
-      }
-      suggestions = (type,keywords) => {
-          this.props.dispatch(suggestResourceAction(type,keywords));
-      }
+      // }
+     //  suggestions = (type,keywords) => {
+     //      this.props.dispatch(suggestResourceAction(type,keywords));
+     //  }
       
 
-     handleOnFocus = (e) => {
+     // handleOnFocus = (e) => {
         
-     }
+     // }
   
   
 /**
@@ -124,8 +137,8 @@ class Searchbar extends Component {
        */
       handleSearhClick = () => {
           const {searchKeywords , selectedType } = this.state;
-          if(searchKeywords !== "" ){
-              this.props.handler(selectedType,searchKeywords.value);
+          if(searchKeywords != "" && searchKeywords != null && searchKeywords != [] && selectedType!= undefined && selectedType!= null && selectedType!= ""){
+              this.props.handler(selectedType,searchKeywords);
           }
       }
 
@@ -134,10 +147,9 @@ class Searchbar extends Component {
        * @param  e  <type> Object {e is option selected } 
        */
       handleChangeKeywords = (e) => {
-        this.setState({searchKeywords:e});
-        if(e !== "" ){
-              this.props.handler(this.state.selectedType,e.value);
-        }
+          //console.log('change');
+          this.setState({searchKeywords:e});
+       
       } 
 
       /**
@@ -146,10 +158,13 @@ class Searchbar extends Component {
        * @param      {<type>}  e { e is keyPressed }
        */
       handleEnterKey = (e) => {
-        if(e.keyCode === 13){
+        //console.log('enter key');
+        console.log(this.state.inputValue);
+        if(this.state.inputValue == '' && e.keyCode === 13 ){
+            
             const {searchKeywords , selectedType } = this.state;
-            if(searchKeywords !== "" ){
-                this.props.handler(selectedType,searchKeywords.value);
+            if(searchKeywords !== "" && searchKeywords != null && searchKeywords != [] && selectedType!= undefined && selectedType!= null && selectedType!= ""){
+                this.props.handler(selectedType,searchKeywords);
             }
         }
       }
@@ -162,6 +177,7 @@ class Searchbar extends Component {
   render() {
      const {selectedType, searchKeywords} = this.state;
      const {suggestions,suggestedKeywords} = this.state;
+    
    
     return (
       <Row className="slidermain toppppp">
@@ -184,6 +200,7 @@ class Searchbar extends Component {
           />
           </Col>
 
+          
           <Col lg={9} xs={12} md={12} className="searchbarjsx searchmain-home"> 
               <SelectSearch
                 name="keywords"
@@ -191,12 +208,17 @@ class Searchbar extends Component {
                 onKeyDown={e => {this.handleEnterKey(e)}}
                 onChange={(e)  =>  {this.handleChangeKeywords(e)}} 
                 options={suggestedKeywords}
-                placeholder="Type Keywords" 
+                placeholder={"Type Keywords"} 
                 className="form-control"
-                inputValue={this.state.searchKeywords?.label}
-                value={this.state.searchKeywords} 
-                onFocus = {e => this.handleOnFocus(e) }
+                isMulti={'True'}
+                value={this.state.searchKeywords}
+                
+                
+                inputValue={this.state.inputValue}
+                //onFocus = {e => this.handleOnFocus(e) }
+                
             />
+
               
           </Col>
           <FontAwesomeIcon icon={faSearch}  onClick = {this.handleSearhClick} className="getbtn"/>
@@ -221,9 +243,9 @@ class Searchbar extends Component {
  */
 function mapStateToProps(state){
    return {  
-        suggestions: state.resourceReducer.suggestedResources ,
+        
         searchedFor : state.resourceReducer.searchedFor,
-        suggestedKeywords: state.resourceReducer.suggestedKeywords
+        
     }
  }
 

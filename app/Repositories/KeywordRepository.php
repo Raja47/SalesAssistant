@@ -2,28 +2,28 @@
 
 namespace App\Repositories;
 
-use App\Models\Category;
+use App\Models\Keyword;
 use App\Traits\UploadAble;
 use Illuminate\Http\UploadedFile;
-use App\Contracts\CategoryContract;
+use App\Contracts\KeywordContract;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use App\Repositories\BaseRepository;
 /**
- * Class CategoryRepository
+ * Class KeywordRepository
  *
  * @package \App\Repositories
  */
-class CategoryRepository extends BaseRepository implements CategoryContract
+class KeywordRepository extends BaseRepository implements KeywordContract
 {
     use UploadAble;
 
     /**
-     * CategoryRepository constructor.
-     * @param Category $model
+     * KeywordRepository constructor.
+     * @param Keyword $model
      */
-    public function __construct(Category $model)
+    public function __construct(Keyword $model)
     {
         parent::__construct($model);
         $this->model = $model;
@@ -35,14 +35,9 @@ class CategoryRepository extends BaseRepository implements CategoryContract
      * @param array $columns
      * @return mixed
      */
-    public function listCategories(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
+    public function listKeywords(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
     {
         return $this->all($columns, $order, $sort);
-    }
-
-    public function listParentCategories(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
-    {
-        return $this->all($columns, $order, $sort)->where('parent_id',1);
     }
 
     /**
@@ -50,7 +45,7 @@ class CategoryRepository extends BaseRepository implements CategoryContract
      * @return mixed
      * @throws ModelNotFoundException
      */
-    public function findCategoryById(int $id)
+    public function findKeywordById(int $id)
     {
         try {
             return $this->findOneOrFail($id);
@@ -64,18 +59,18 @@ class CategoryRepository extends BaseRepository implements CategoryContract
 
     /**
      * @param array $params
-     * @return Category|mixed
+     * @return Keyword|mixed
      */
-    public function createCategory(array $params)
+    public function createKeyword(array $params)
     {
         try {
             $collection = collect($params);
 
-            $category = new Category($collection->all());
+            $Keyword = new Keyword($collection->all());
 
-            $category->save();
+            $Keyword->save();
 
-            return $category;
+            return $Keyword;
 
         } catch (QueryException $exception) {
             throw new InvalidArgumentException($exception->getMessage());
@@ -86,41 +81,32 @@ class CategoryRepository extends BaseRepository implements CategoryContract
      * @param array $params
      * @return mixed
      */
-    public function updateCategory(array $params)
+    public function updateKeyword(array $params)
     {
-        $category = $this->findCategoryById($params['id']);
+        $Keyword = $this->findKeywordById($params['id']);
 
         $collection = collect($params)->except('_token');
-        $category->update($collection->all());
+        $Keyword->update($collection->all());
 
-        return $category;
+        return $Keyword;
     }
 
     /**
      * @param $id
      * @return bool|mixed
      */
-    public function deleteCategory($id)
+    public function deleteKeyword($id)
     {
-        $category = $this->findCategoryById($id);
+        $Keyword = $this->findKeywordById($id);
 
-        $category->delete();
+        $Keyword->delete();
 
-        return $category;
-    }
-
-    public function treeList()
-    {
-        return Category::orderByRaw('-name ASC')
-            ->get()
-            ->nest()
-            ->setIndent('|–– ')
-            ->listsFlattened('name');
+        return $Keyword;
     }
 
 
     public function findBySlug($slug)
     {   
-            return Category::where('slug', $slug)->first();
+            return Keyword::where('slug', $slug)->first();
     }
 }

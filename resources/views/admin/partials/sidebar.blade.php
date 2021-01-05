@@ -20,8 +20,17 @@
       </li>
   
            <!-- Divider -->
-   
+      <li class="nav-item {{ Route::currentRouteName() == 'admin.categories.index' ? 'active' : '' }}" >
+        <a class="nav-link" href="{{ route('admin.categories.index') }}">
+          <i class="fas fa-tags"></i>
+          <span>Categories</span></a>
+      </li>
 
+      <li class="nav-item {{ Route::currentRouteName() == 'admin.keywords.index' ? 'active' : '' }}" >
+        <a class="nav-link" href="{{ route('admin.keywords.index') }}">
+          <i class="fas fa-tags"></i>
+          <span>Keywords</span></a>
+      </li>
     
       <li class="nav-item {{ Route::currentRouteName() == 'admin.resources.index' ? 'active' : '' }}" >
         <a class="nav-link" href="{{ route('admin.resources.index') }}" >
@@ -30,31 +39,12 @@
       </li>
 
     
-      <li class="nav-item {{ Route::currentRouteName() == 'admin.resources.create' ? 'active' : '' }}" >
-        <a class="nav-link" href="{{ route('admin.resources.create') }}" >
-          <i class="fas fa-shopping-bag"></i>
-          <span>Add Resource</span></a>
-      </li>    
+   
       
-      
-     
-
-
-      
-      
-     
-
-
-
-      
-
-
-
-     
-     
       
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
+
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>

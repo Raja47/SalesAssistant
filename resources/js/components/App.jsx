@@ -26,7 +26,7 @@ class App extends Component {
           
             <Container className="MainAppFluid" fluid>
               
-            <Router basename={"demo/library"} assetPath={app_url+"/public/"} >
+            <Router basename={""} assetPath={app_url+"/public/"} >
               <Header/>
               <Switch>
                     <Route exact path="/" component={Home} />

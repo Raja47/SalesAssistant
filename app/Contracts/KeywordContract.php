@@ -3,10 +3,10 @@
 namespace App\Contracts;
 
 /**
- * Interface CategoryContract
+ * Interface KeywordContract
  * @package App\Contracts
  */
-interface CategoryContract
+interface KeywordContract
 {
     /**
      * @param string $order
@@ -14,38 +14,32 @@ interface CategoryContract
      * @param array $columns
      * @return mixed
      */
-    public function listCategories(string $order = 'id', string $sort = 'desc', array $columns = ['*']);
+    public function listKeywords(string $order = 'id', string $sort = 'desc', array $columns = ['*']);
 
     /**
      * @param int $id
      * @return mixed
      */
-    public function findCategoryById(int $id);
+    public function findKeywordById(int $id);
 
     /**
      * @param array $params
      * @return mixed
      */
-    public function createCategory(array $params);
+    public function createKeyword(array $params);
 
     /**
      * @param array $params
      * @return mixed
      */
-    public function updateCategory(array $params);
+    public function updateKeyword(array $params);
 
     /**
      * @param $id
      * @return bool
      */
-    public function deleteCategory($id);
+    public function deleteKeyword($id);
 
-    /**
-     * @param $slug
-     * @return mixed
-     */
-    public function listParentCategories();
-    public function treeList();
     /**
      * @param $slug
      * @return mixed

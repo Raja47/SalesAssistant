@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Config;
 use File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use App\Models\Category;
  
 class ResourceController extends Controller
 {
@@ -102,16 +103,6 @@ class ResourceController extends Controller
             
             $suggestedKeywords = $temp_array;
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
             return response()->json(["data" =>$searchResults,"status" => true , 'suggestedKeywords'=> $suggestedKeywords ]);
     }
 
@@ -123,10 +114,15 @@ class ResourceController extends Controller
      *
      * @return     <type>  ( description_of_the_return_value )
      */
-    public function search($type ,$keywords , $page_no , $paginationResults){
+    public function search(Request $request){
             
            
             
+        $type               = $request->type;
+        $keywords           = $request->keywords;
+        $page_no            = $request->page_no;
+        $paginationResults  = $request->paginationResults;
+
         
             
             // $keywords = trim($keywords); 
@@ -141,13 +137,26 @@ class ResourceController extends Controller
             //     $totalResults = $searchResults->count();
             //     $searchResults = $searchResults->slice( ($page_no-1)*$paginationResults , $paginationResults);
             //   return response()->json(["data" => $searchResults , "page_no" => $page_no , 'totalResults' => $totalResults , "status" => true , "searchedFor" => [ "type"=>$type , "keywords"=>$keywords ] ]);
-            
-           
-            $typeArray = ($type == 0)  ? ['1','5','6'] : [$type];
-        
-            $keywords = trim($keywords);  
+          $keywordArray = []  ;
+          foreach($keywords as $keyword){
+            $keywordArray[] = $keyword['value'];
+          }
+          $keyword = implode(' ', $keywordArray);  
+
+          $category = Category::find($type);
+          $typeArray = [];
+          $typeArray[] = $type;
+          $categoryChildren = $category->children; 
+          if($categoryChildren){
+                foreach($categoryChildren as $child){
+                    $typeArray[] = $child->id;
+                }
+          }
+
+
+          $tyeArray =[];
             $results = DB::table('resources')
-                ->selectRaw("resources.* , resource_categories.title as `category_title`, images.url as uploaded_image_url , resource_files.url as uploaded_file_url ,MATCH(resources.keywords) AGAINST ('$keywords') as `weightage`") 
+                ->selectRaw("resources.* , resource_categories.title as `category_title`, images.url as uploaded_image_url , resource_files.url as uploaded_file_url ,MATCH(resources.keywords) AGAINST ('$keyword') as `weightage`") 
                 ->leftJoin('resource_categories', 'resource_categories.id', '=', 'resources.resource_category_id')
                 ->leftJoin('images', function ($join) {
                     $join->on('images.imageable_id', '=', 'resources.id')
@@ -158,9 +167,9 @@ class ResourceController extends Controller
                     $join->on('resource_files.resource_id', '=', 'resources.id')
                          ->where('resource_files.deleted_at' , null);
                 })
-            ->whereRaw("MATCH(resources.keywords) AGAINST ('$keywords')")
+            ->whereRaw("MATCH(resources.keywords) AGAINST ('$keyword')")
             ->whereIn('resources.resource_category_id', $typeArray)
-            ->orderByRaw("MATCH(resources.keywords) AGAINST ('$keywords')  Desc")
+            ->orderByRaw("MATCH(resources.keywords) AGAINST ('$keyword')  Desc")
             ->offset(($page_no-1)*$paginationResults )
             ->limit($paginationResults)
             ->get();
@@ -170,8 +179,8 @@ class ResourceController extends Controller
                               });
     
             $totalResults = DB::table('resources')
-                ->selectRaw("resources.id ,resources.resource_category_id ,resources.keywords  ,MATCH(keywords) AGAINST ('$keywords') as `weightage`") 
-            ->whereRaw("MATCH(keywords) AGAINST ('$keywords')")
+                ->selectRaw("resources.id ,resources.resource_category_id ,resources.keywords  ,MATCH(keywords) AGAINST ('$keyword') as `weightage`") 
+            ->whereRaw("MATCH(keywords) AGAINST ('$keyword')")
             ->whereIn('resources.resource_category_id', $typeArray)
             ->count();
             

@@ -47,6 +47,25 @@ Route::group(['prefix'  =>  'admin'], function (){
          
         });
 
+
+         Route::group(['prefix'  =>   'categories'], function() {
+            Route::get('/', 'Cms\CategoryController@index')->name('admin.categories.index');
+            Route::get('/create', 'Cms\CategoryController@create')->name('admin.categories.create');
+            Route::post('/store', 'Cms\CategoryController@store')->name('admin.categories.store');
+            Route::get('/{id}/edit', 'Cms\CategoryController@edit')->name('admin.categories.edit');
+            Route::post('/update', 'Cms\CategoryController@update')->name('admin.categories.update');
+            Route::get('/{id}/delete', 'Cms\CategoryController@delete')->name('admin.categories.delete');
+        });
+
+         Route::group(['prefix'  =>   'keywords'], function() {
+            Route::get('/', 'Cms\KeywordController@index')->name('admin.keywords.index');
+            Route::get('/create', 'Cms\KeywordController@create')->name('admin.keywords.create');
+            Route::post('/store', 'Cms\KeywordController@store')->name('admin.keywords.store');
+            Route::get('/{id}/edit', 'Cms\KeywordController@edit')->name('admin.keywords.edit');
+            Route::post('/update', 'Cms\KeywordController@update')->name('admin.keywords.update');
+            Route::get('/{id}/delete', 'Cms\KeywordController@delete')->name('admin.keywords.delete');
+        });
+
     });
 });
 

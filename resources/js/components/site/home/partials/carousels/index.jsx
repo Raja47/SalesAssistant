@@ -20,24 +20,20 @@ class Carouselslider extends Component {
 
   constructor(props) {
       super(props);
+       const rawOptions = [];
+       Object.entries(categories).map(([key, value]) => { rawOptions.push({value: value ,name:key }) });
+
+      const rawkeywords = [];
+      Object.entries(keywords).map(([key, value]) => { rawkeywords.push({value: value ,label:key }) });
 
       this.state = {
           resources:[],
           type: 'group',
           searchKeywords:"",
-          selectedType : '0',
+          selectedType : 1,
           suggestions : [],
-          suggestedKeywords: [],
-          options:[
-            { value: '0',  name:'All Images'  }, 
-                { value: '1',  name:' Image Photo'  },
-                { value: '5',  name:' Image Vector'  },
-                { value: '6',  name:' Image Illustration'  },
-             { value: '2',  name:'Video'  },
-             { value: '3',  name:'Plugin' },
-             { value: '4',  name:'Theme' },
-            //  { value: '0',  name:'All'  }    
-          ]
+          suggestedKeywords: rawkeywords,
+          options:rawOptions
       };
       const alreadyCalled = '';
 
@@ -49,49 +45,50 @@ class Carouselslider extends Component {
    *   Suggestions
    *   Suggested Keywords
    */
-  componentDidUpdate(prevProps) {
-    // Typical usage (don't forget to compare props):
-    if (this.props.suggestions !== prevProps.suggestions) {
-      this.setState({suggestions:this.props.suggestions});
-    }
-    if (this.props.suggestedKeywords !== prevProps.suggestedKeywords) {
-      this.setState({suggestedKeywords:this.props.suggestedKeywords});
-    }
-  }
+
+  // componentDidUpdate(prevProps) {
+  //   // Typical usage (don't forget to compare props):
+  //   if (this.props.suggestions !== prevProps.suggestions) {
+  //     this.setState({suggestions:this.props.suggestions});
+  //   }
+  //   if (this.props.suggestedKeywords !== prevProps.suggestedKeywords) {
+  //     this.setState({suggestedKeywords:this.props.suggestedKeywords});
+  //   }
+  // }
 
   handleChangeType = (e) => {
     this.setState({'selectedType':e})
   }
 
-  handleTypedKeywords = (e,action) => {
+  // handleTypedKeywords = (e,action) => {
     
-    if( action.action == 'menu-close' || action.action == 'input-blur' ){
-      return '';
-    }
-    if( e =="" || e == undefined){
+  //   if( action.action == 'menu-close' || action.action == 'input-blur' ){
+  //     return '';
+  //   }
+  //   if( e =="" || e == undefined || e == null){
         
-         this.setState({suggestedKeywords:[]});
-         this.setState({searchKeywords:{label:e , value:e}});
-    }else{
+  //        this.setState({suggestedKeywords:[]});
+  //        this.setState({searchKeywords:{label:e , value:e}});
+  //   }else{
 
-      var {selectedType } = this.state;
-      clearTimeout(this.alreadyCalled);
-      this.alreadyCalled = setTimeout( () => this.suggestions(selectedType,e) ,230 ); 
-      this.setState({searchKeywords:{label:e , value:e}});  
-    }
-  }
+  //     var {selectedType } = this.state;
+  //     clearTimeout(this.alreadyCalled);
+  //     this.alreadyCalled = setTimeout( () => this.suggestions(selectedType,e) ,230 ); 
+  //     this.setState({searchKeywords:{label:e , value:e}});  
+  //   }
+  // }
 
-  suggestions = (type,keywords) => {
-     this.props.dispatch(suggestResourceAction(type,keywords));
-  }
+  // suggestions = (type,keywords) => {
+  //    this.props.dispatch(suggestResourceAction(type,keywords));
+  // }
   
   
     /**
      * { When use clicks in Select ,already values need to be cleared }
      */   
-      handleOnFocus = (e) => {
-          //this.setState({searchKeywords:null});
-      }
+      // handleOnFocus = (e) => {
+      //     //this.setState({searchKeywords:null});
+      // }
   
   
 /**
@@ -113,12 +110,10 @@ class Carouselslider extends Component {
        * @param  e  <type> Object {e is option selected } 
        */
       handleChangeKeywords = (e,action) => {
-        
           this.setState({searchKeywords:e});
-          if(e.value !== "" || e.value !== undefined){
-              this.setState({redirect : "/search"})  
-          }
-          
+          // if(e.value !== "" || e.value !== undefined){
+          //     this.setState({redirect : "/search"})  
+          // }
       }
 
       /**
@@ -128,8 +123,9 @@ class Carouselslider extends Component {
       */
       handleEnterKey = (e) => {
        if(e.keyCode === 13){
-            const {searchKeywords } = this.state;
-            if(searchKeywords !== "" ){
+            const {searchKeywords ,selectedType} = this.state;
+            if(searchKeywords != "" && searchKeywords != null && selectedType != null && selectedType != "" ){
+             
                 this.setState({redirect : "/search"}) 
             }
         }
@@ -147,7 +143,7 @@ class Carouselslider extends Component {
       return <Redirect push
               to={{
                   pathname: this.state.redirect,
-                  state: { keywords: searchKeywords.value , type: selectedType  }
+                  state: { keywords: searchKeywords , type: selectedType  }
               }}
               />
     }
@@ -178,15 +174,18 @@ class Carouselslider extends Component {
             </Col>
             <Col lg={9} xs={12} md={12} className="searchmain-home"> 
               <SelectSearch 
-                onInputChange={(e,action) => {this.handleTypedKeywords(e,action)}}
+                
                 onKeyDown={ e => {this.handleEnterKey(e)} }
                 onChange={  (e,action)  => {this.handleChangeKeywords(e,action)}} 
-                onFocus={e => {this.handleOnFocus(e)}}
                 options={this.state.suggestedKeywords} 
-                placeholder="Type Your keywords" 
+                placeholder={"Type Your keywords"} 
                 className="form-control"
-                value={this.state.searchKeywords}
-                inputValue={this.state.searchKeywords.label}
+                isMulti={"True"}
+
+                //inputValue={this.state.searchKeywords.label}
+                //value={this.state.searchKeywords}
+                //onInputChange={(e,action) => {this.handleTypedKeywords(e,action)}}
+                //onFocus={e => {this.handleOnFocus(e)}}
               />
              
             </Col>
@@ -209,8 +208,8 @@ class Carouselslider extends Component {
 
 function mapStateToProps(state){
    return {  
-        suggestions: state.resourceReducer.suggestedResources,
-        suggestedKeywords: state.resourceReducer.suggestedKeywords
+        //suggestions: state.resourceReducer.suggestedResources,
+        //suggestedKeywords: state.resourceReducer.suggestedKeywords
     }
 }
 

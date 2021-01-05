@@ -2,8 +2,9 @@ import axios from "axios"
 
 
 export const searchResourceAction =  (type, keywords , page_no , paginationResults) => dispatch => {
-   
-   axios.get(api_url+`/site/resource/search/${type}/${keywords}/${page_no}/${paginationResults}`)
+   const data = {'type' : type,'keywords':keywords ,'page_no': page_no ,'paginationResults':  paginationResults};
+
+   axios.post(api_url+`/site/resource/search` , data)
   .then((response) => {
     
     if(response.data){

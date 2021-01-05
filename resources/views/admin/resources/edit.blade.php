@@ -16,8 +16,7 @@
             <div class="tile p-0">
                 <ul class="nav flex-column nav-tabs user-tabs">
                     <li class="nav-item"><a class="nav-link active" href="#general" data-toggle="tab">General</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#images" data-toggle="tab">Images</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#files" data-toggle="tab">Files</a></li>
+                    
                 </ul>
             </div>
         </div>
@@ -31,21 +30,11 @@
                             <hr>
                             <div class="tile-body">
 
-                                <div class="form-group">
-                                    <label class="control-label" for="name">Title</label>
-                                    <input
-                                        class="form-control @error('title') is-invalid @enderror"
-                                        type="text"
-                                        placeholder="Enter Resource name"
-                                        id="title"
-                                        name="title"
-                                        value="{{ old('title', $resource->title) }}"
-                                    />
+                                
+                                    
                                     <input type="hidden" name="resource_id" value="{{ $resource->id }}">
-                                    <div class="invalid-feedback active">
-                                        <i class="fa fa-exclamation-circle fa-fw"></i> @error('title') <span>{{ $message }}</span> @enderror
-                                    </div>
-                                </div>
+                                    
+                           
 
                                 
 
@@ -65,37 +54,7 @@
                                     </div>
                                 </div>
                                
-                               <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="control-label" for="image">Display Image Url</label>
-                                            <input
-                                                class="form-control @error('image') is-invalid @enderror"
-                                                type="text"
-                                                placeholder="Enter Resource Title"
-                                                id="image"
-                                                name="image"
-                                                value="{{ old('image', $resource->image) }}"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="control-label" for="demo_url">Demo Url (For plugins & themes)</label>
-                                            <input
-                                                class="form-control @error('demo_url') is-invalid @enderror"
-                                                type="text"
-                                                placeholder="Enter Resource Demo Url"
-                                                id="demo_url"
-                                                name="demo_url"
-                                                value="{{ old('demo_url', $resource->demo_url) }}"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
+                               
                                 
                                 <div class="row">
                                     <div class="col-md-12">
@@ -114,24 +73,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                
-                                
-                                <div class="form-group">
-                                    <label class="control-label" for="description">Description</label>
-                                    <textarea name="description" id="description" rows="8" class="form-control">{{ old('description', $resource->description) }}</textarea>
-                                </div>
                                 <div class="form-group">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input class="form-check-input"
-                                                   type="checkbox"
-                                                   id="status"
-                                                   name="status"
-                                                   {{ $resource->status == 1 ? 'checked' : '' }}
-                                                />Status
+                                            <input class="form-check-input" type="checkbox" id="status" name="status"
+                                            {{ $resource->status == 1 ? 'checked' : '' }}
+                                            />Status
                                         </label>
                                     </div>
                                 </div>
+                                
+                                
                                 
                             </div>
                             <div class="tile-footer">
@@ -146,7 +98,7 @@
                     </div>
                 </div>
 
-                <div class="tab-pane" id="images">
+                <div class="tab-pane active" id="images">
                     <div class="tile">
                         <h3 class="tile-title">Upload Image</h3>
                         <hr>
@@ -168,7 +120,8 @@
                             </div>
                             @if ($resource->images)
                                 <hr>
-                                <h6>Uploaded Images </h4>
+                                 <p><small>Note* Just upload new image to replace old one</small></p>
+                                <h6>Uploaded Images </h6>
                                 
                                 <div class="row">
                                     @foreach($resource->images as $image)
@@ -185,67 +138,13 @@
                                     @endforeach
                                     
                                 </div>
-                                <p><small>Note* Custom Uploaded Images will get first priority while displaying and downloading</small></p>
-                            @endif
-                            @if($resource->image)
-                                <hr>
-                                <h6>Scrapped Image</h4>
                                 
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <img src="{{ $resource->image }}" id="brandLogo" class="img-fluid" alt="img">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             @endif
                         </div>
                     </div>
                 </div>
                 
-                <div class="tab-pane" id="files">
-                    <div class="tile">
-                        <h3 class="tile-title">Upload Files</h3>
-                        <hr>
-                        <div class="tile-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <form action="" class="dropzone" id="filedropzone" style="border: 2px dashed rgba(0,0,0,0.3)">
-                                        <input type="hidden" name="resource_id" value="{{ $resource->id }}">
-                                        {{ csrf_field() }}
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="row d-print-none mt-2">
-                                <div class="col-12 text-right">
-                                    <button class="btn btn-success" type="button" id="uploadFileButton">
-                                        <i class="fa fa-fw fa-lg fa-upload"></i>Upload File
-                                    </button>
-                                </div>
-                            </div>
-                            @if ($resource->files)
-                                <hr>
-                                <div class="row" filesss="true">
-                                    @foreach($resource->files as $file)
-
-                                        <div class="col-md-3">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <img src="{{ asset('images/fileIcon.png') }}" id="brandLogo" class="img-fluid" alt="img">
-                                                    <a class="card-link float-right text-danger" href="{{ route('admin.resources.files.delete', $file->id) }}">
-                                                        <i class="fa fa-fw fa-lg fa-trash"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                </div>
+                
 
 
             </div>

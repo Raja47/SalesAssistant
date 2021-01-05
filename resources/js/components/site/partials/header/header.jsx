@@ -22,32 +22,32 @@ function Header() {
   const themeLocation = {
     pathname:'/search',
     state: {
-      keywords:'All',
-      type:'4'
+      keywords:[{label:'All industries',value:'All industries'}],
+      type:'5'
     }
   }
 
   const imageLocation = {
     pathname:'/search',
     state: {
-      keywords:'All',
-      type:'1'
+      keywords:[{label:'All industries',value:'All industries'}],
+      type:'2'
     }
   }
 
   const videoLocation = {
     pathname:'/search',
     state: {
-      keywords:'All',
-      type:'2'
+      keywords:[{label:'All industries',value:'All industries'}],
+      type:'3'
     }
   }
 
   const pluginLocation = {
     pathname:'/search',
     state: {
-      keywords:'All',
-      type:'3'
+      keywords:[{label:'All industries',value:'All industries'}],
+      type:'4'
     }
   }
 
@@ -69,10 +69,10 @@ function Header() {
                     <NavDropdown.Item><Link >Themes</Link></NavDropdown.Item>
                   </NavDropdown>*/}
                   
-                  <Nav.Link><Link to={imageLocation} >Photos</Link></Nav.Link>
-                  <Nav.Link><Link to={videoLocation} >Videos</Link></Nav.Link>
-                  <Nav.Link><Link to={pluginLocation}>Plugins</Link></Nav.Link>
-                  <Nav.Link><Link to={themeLocation} >Themes</Link></Nav.Link>
+                  <Nav.Link><Link to={imageLocation} >Logos</Link></Nav.Link>
+                  <Nav.Link><Link to={videoLocation} >Web Designs</Link></Nav.Link>
+                  <Nav.Link><Link to={pluginLocation}>App Design</Link></Nav.Link>
+                  <Nav.Link><Link to={themeLocation} >Art & Illustration</Link></Nav.Link>
                   
                   
                   

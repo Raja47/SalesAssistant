@@ -17,23 +17,22 @@
                         <thead>
                         <tr>
                             <th> # </th>
-                            <th> Titlt </th>
-                            <th> Description </th>
-
                             <th class="text-center"> Keywords </th>
-                            
                             <th class="text-center"> Category </th>
-                            <th class="text-center"> Status </th>
+                            <th class="text-center"> Image </th>
+                            <th class="text-center"> Status   </th>
+
                             <th style="width:100px; min-width:100px;" class="text-center text-danger"><i class="fa fa-bolt"> </i></th>
                         </tr>
                         </thead>
                         <tbody>
+                            @php $count=1; @endphp
                             @foreach($resources as $resource)
+                                @php $count++; @endphp
                                 <tr>
-                                    <td>{{ $resource->id }}</td>
-                                    <td>{{ $resource->title }}</td>
-                                    <td>{{ $resource->description }}</td>
-                                    <td>
+                                    <td class="text-center">{{ $count }}</td>
+                        
+                                    <td class="text-center">
                                     @if($resource->keywords)
                                     
                                         @foreach($resource->keywords as $keyword)
@@ -45,10 +44,11 @@
                                                     
                                     @endif
                                     </td>
-                                    <td>{{ $resource->category->title}}</td>
                                     
-                                  
+                                    <td class="text-center">{{ $resource->category->title }}</td>
                                     
+                                    <td class="text-center"> <img width="150px" height="100px" src="{{ asset('storage/resources/images/small/'.optional($resource->images->first())->url) }}"> </td>
+
                                     <td class="text-center">
                                         @if ($resource->status == 1)
                                             <span class="badge badge-success">Active</span>

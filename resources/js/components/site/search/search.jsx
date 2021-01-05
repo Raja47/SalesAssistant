@@ -25,7 +25,7 @@ class Search extends Component{
     constructor(props) {
       super(props);
       this.state = { 
-        keywords : '',
+        keywords : [],
         type : '',
         pageCount: '',
         activePage:1,
@@ -41,11 +41,12 @@ class Search extends Component{
      
     }
     
-    componentDidMount() {
+    componentDidMount( ){
         if(this.props.location.state != undefined){
           const {keywords , type } = this.props.location.state;
+
           const {activePage,paginationResults} = this.state;
-          this.props.dispatch(searchResourceAction(type,keywords,activePage,paginationResults));
+          this.props.dispatch(searchResourceAction(type,[{'label':'All industries',value:'All industries'}],activePage,paginationResults));
           this.setState({loading:true,keywords:keywords,type:type });
         }
     }
@@ -72,6 +73,7 @@ class Search extends Component{
         }
           
         if(this.props.location.state !== prevProps.location.state ){
+
              this.handler(this.props.location.state.type,this.props.location.state.keywords);
         }
     }
