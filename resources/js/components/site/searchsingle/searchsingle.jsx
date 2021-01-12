@@ -1,5 +1,5 @@
 import React ,{useState , useEffect ,Component , Fragmnent} from 'react';
-import {Button, Carousel ,Container ,Row,Col,Card,Image,Badge} from 'react-bootstrap';
+import {Button ,Container ,Row,Col,Card,Image,Badge} from 'react-bootstrap';
 import {Link, Redirect ,useHistory} from "react-router-dom"
 import { connect } from 'react-redux'
 import queryString from 'query-string'
@@ -11,11 +11,14 @@ import { getResourceAction, }  from "./../../../actions/resourceActions";
 import moment from "moment"
 // get our fontawesome imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faHome , faDownload } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faHome , faDownload ,faExternal} from "@fortawesome/free-solid-svg-icons";
 import Searchbar from '../search/partials/searchbar/';
 import {MoonLoader} from "react-spinners";
 import { css } from "@emotion/core";
 
+
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 
 
 class Searchsingle extends Component{
@@ -160,15 +163,15 @@ class Searchsingle extends Component{
              
               <Col lg={8} className="searhresultsingleimg">
                 
-                
-                {  /** If Video**/
+                {/*
+                {  
                     (resourceType == "video" || resourceType == "Video")  && <Player  autoPlay={true} poster={resource.images?.[0]?.url  ?  (asset_url()+"/resources/images/small/"+ ( resource.images?.[0]?.url))  : resource.image }>
                       <source src={ resource.files?.[0]?.url ?  (asset_url()+"/resources/files/"+(resource.files?.[0]?.url) ) : resource.preview_video_url } />
                       <ControlBar autoHide={false} />
                     </Player>
                 }
                 
-                { /** If Not Video**/
+                { 
                 
                 (resourceType != "video" && resourceType != "Video")  &&  
                   <Image src={ resource.images?.[0]?.url  ?  (asset_url()+"/resources/images/small/"+ ( resource.images?.[0]?.url))  :   ( resource.image ??    (asset_url()+"/resources/images/small/"+"not-found.png"  ))} rounded />
@@ -178,10 +181,27 @@ class Searchsingle extends Component{
                                     { ( (resourceType == "plugin" || resourceType == "theme" ) 
                                 && resource.demo_url   != null ) && <div className="col-md-12"><Button className="demo-button rajaex-kk" variant="primary" onClick={() => this.handleDemo(resource.demo_url)}  >Demo<FontAwesomeIcon icon={faEye} /></Button></div> }
                   
+                  
+                  */}
+                  
+                  <Carousel>
+                        <div>
+                            <img src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
+                            <p className="legend">Legend 1</p>
+                        </div>
+                        <div>
+                            <img src="http://react-responsive-carousel.js.org/assets/3.jpeg" />
+                            <p className="legend">Legend 2</p>
+                        </div>
+                        <div>
+                            <img src="http://react-responsive-carousel.js.org/assets/5.jpeg" />
+                            <p className="legend">Legend 3</p>
+                        </div>
+                    </Carousel>
               </Col>
               <Col lg={4}  className="badgemain">
 
-              <h2>{"Related Keywords"}</h2>
+              <h2>{"App Description"}</h2>
               <span className="keyworsdiv">
               <hr/>
                    { resource.keywords != undefined  && 
@@ -203,15 +223,15 @@ class Searchsingle extends Component{
                 </span>
 
                    <div className="numofdownloads"> 
-                    <p><FontAwesomeIcon icon={faDownload}/> <strong>{ resource.downloads}</strong></p>
+                    <p><strong>Visit AppStore</strong></p>
                    </div>
                    <div className="numofdownloads"> 
-                    <p><FontAwesomeIcon icon={faEye}/> <strong>{ resource.views}</strong></p>
+                    <p><strong>Visit PlayStore</strong></p>
                    </div>
-                   { ( (resourceType == "image-photo" || resourceType == "image-vector" || resourceType == "image-illustration")  
+                   {/* ( (resourceType == "image-photo" || resourceType == "image-vector" || resourceType == "image-illustration")  
                                 && resource.images !=[] ) && <Button variant="primary" onClick={() => this.handleDownload(resource)}>Download Now <FontAwesomeIcon icon={faDownload} /></Button> }
                    { ( (resourceType != "image-photo" && resourceType != "image-vector" && resourceType != "image-illustration") 
-                                && resource.files   !=[] ) && <Button variant="primary" onClick={() => this.handleDownload(resource)}  >Download Now <FontAwesomeIcon icon={faDownload} /></Button> }
+                                && resource.files   !=[] ) && <Button variant="primary" onClick={() => this.handleDownload(resource)}  >Download Now <FontAwesomeIcon icon={faDownload} /></Button> */}
                    
               </Col>
 
@@ -253,6 +273,7 @@ class Searchsingle extends Component{
                 }}*/}
               </Row>
          </Container>
+                 
       </div> 
     );
   }

@@ -52,57 +52,11 @@ function Header() {
   }
 
   return (
+      <span>
       
-    <Row className="header" >
-        <LoadingBar color="blue" />
-        <Col lg={4} sm={12} xs={12}>
-          <Navbar bg="light" expand="lg">
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                  <Nav className="mr-auto">
-                  
-                  {/*<NavDropdown title="Search" id="basic-nav-dropdown">
-                    <NavDropdown.Item>Search</NavDropdown.Item>
-                    <NavDropdown.Item><Link >Images</Link></NavDropdown.Item>
-                    <NavDropdown.Item><Link >Videos</Link></NavDropdown.Item>
-                    <NavDropdown.Item><Link >Plugins</Link></NavDropdown.Item>
-                    <NavDropdown.Item><Link >Themes</Link></NavDropdown.Item>
-                  </NavDropdown>*/}
-                  
-                  <Nav.Link><Link to={imageLocation} >Logos</Link></Nav.Link>
-                  <Nav.Link><Link to={videoLocation} >Web Designs</Link></Nav.Link>
-                  <Nav.Link><Link to={pluginLocation}>App Design</Link></Nav.Link>
-                  <Nav.Link><Link to={themeLocation} >Art & Illustration</Link></Nav.Link>
-                  
-                  
-                  
-                
-
-                  </Nav>
-                </Navbar.Collapse>
-              </Navbar>
-      </Col>
-
-
-      <Col sm={4} className="headermenu">
-            <Link to="/"><FontAwesomeIcon icon={faHome} /></Link> 
-           {/*<Link to="/"><img src={logo} /></Link>*/}
-      </Col>
-
-      <Col md={4} className="getbtnsection" sm={12}>
-        <Navbar bg="primary" variant="dark" className="menu-bg">
-         
-            <Nav className="mr-auto">
-            
-            <Link to="/feedback" className="feedback">Feedback</Link>
-              <Link target="_blank" to="/admin/login"><FontAwesomeIcon icon={faUser} />  Dashboard
-              
-              </Link>
-              
-            </Nav>
-        </Navbar>
-      </Col>
-    </Row>
+        <p></p>
+      </span>
+   
   );
 }
 
