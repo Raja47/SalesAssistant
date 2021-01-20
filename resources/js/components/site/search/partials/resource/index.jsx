@@ -83,9 +83,9 @@ class Resource extends Component{
             Video or 
         **/}
         if(resource.searchable?.category_title == "video"){
-            
+    
             return (
-                <Col md="auto" className="img5555 video-kk" onClick={ () => this.handleRedirectToProduct("resource?id="+resource.searchable?.id) }  >
+                <Col md={3} sm={12} xs={12} className="search-result-img-kk" onClick={ () => this.handleRedirectToProduct("resource?id="+resource.searchable?.id) }  >
                     <Card onMouseEnter={() => { this.play()} } onMouseLeave={ () => {this.pause()} }>
                       <Player  key={resource.searchable.uploaded_file_url ? asset_url()+"/resources/files/"+ resource.searchable.uploaded_file_url  :  resource.searchable.preview_video_url} ref={player => {this.player = player;}} preload={"none"} autoPlay={false}  poster={resource.searchable.images?.[0]?.url  ?  (asset_url()+"/resources/images/small/"+ ( resource.searchable.images?.[0]?.url))  :   ( resource.searchable.image ??    (asset_url()+"/resources/images/small/"+"not-found.png"  )) }>
                         <source src={ resource.searchable.uploaded_file_url ? asset_url()+"/resources/files/"+ resource.searchable.uploaded_file_url  :  resource.searchable.preview_video_url  } />
@@ -93,13 +93,12 @@ class Resource extends Component{
                     </Card>
                 </Col>
             );
-            
         }
         else{
             
             return (
-                <Col md="auto" className={ (resource.searchable?.category_title == "theme"  || resource.searchable?.category_title == "plugin" ) ? "img5555 img-plugin-kk" : "img5555"}>  
-                    <Card  onClick={ () => this.handleRedirectToProduct("resource?id="+resource.searchable.id) }  >
+                <Col md={3} sm={12} xs={12} className="search-result-img-kk" className={ (resource.searchable?.category_title == "theme"  || resource.searchable?.category_title == "plugin" ) ? " img-plugin-kk" : "search-result-img-kk"}>  
+                    <Card  onClick={ () => this.props.openModal() }  >
                       <Image variant="top" thumbnail  src={ resource.searchable.uploaded_image_url  ?  (asset_url()+"/resources/images/small/"+ (resource.searchable.uploaded_image_url))  :   ( resource.searchable.image ??    (asset_url()+"/resources/images/small/"+"not-found.png"  ))  } />
                       <Card.Body >
                         <Card.Title> { resource.searchable?.title} </Card.Title>

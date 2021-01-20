@@ -2,7 +2,7 @@ import React ,{ Component , Fragmnent} from 'react'
 import {Button, Carousel ,Container ,Row,Col,Card} from 'react-bootstrap';
 import {useHistory} from "react-router-dom"
 import { connect } from 'react-redux'
-
+import Header from './../../site/partials/header/header';
 import Carouselslider from './partials/carousels';
 
 
@@ -35,7 +35,7 @@ class Home extends Component{
 		return (
 
 		   <div className="App">
-		  
+            <Header/>		  
 		    <Container className="MainAppFluid" fluid>
 		       
 		      <Carouselslider/><br/>

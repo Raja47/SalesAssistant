@@ -89,9 +89,6 @@ class ResourceController extends BaseController
 
     public function store(Request $request)
     {
-        
-
-
         // $params = $request->except('_token');
 
         // $resource = $this->resourceRepository->createResource($params);
@@ -122,6 +119,7 @@ class ResourceController extends BaseController
             return $this->responseRedirectBack('Error occurred while updating resource.', 'error', true, true);
         }
         return $this->responseRedirectBack( 'Resource updated successfully.' ,'success',false, false);
+
     }
     
     public function delete($id){

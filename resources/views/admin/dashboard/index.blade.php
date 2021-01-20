@@ -11,8 +11,8 @@
             <div class="widget-small primary coloured-icon">
                 <i class="icon fa fa-users fa-3x"></i>
                 <div class="info">
-                    <h4>Images</h4>
-                    <p><b>{{$images}}</b></p>
+                    <h4>Logos</h4>
+                    <p><b>{{$logos}}</b></p>
                 </div>
             </div>
         </div>
@@ -20,8 +20,8 @@
             <div class="widget-small info coloured-icon">
                 <i class="icon fa fa-thumbs-o-up fa-3x"></i>
                 <div class="info">
-                    <h4>Videos</h4>
-                    <p><b>{{$videos}}</b></p>
+                    <h4>Web Designs</h4>
+                    <p><b>{{$webdesigns}}</b></p>
                 </div>
             </div>
         </div>
@@ -29,8 +29,8 @@
             <div class="widget-small warning coloured-icon">
                 <i class="icon fa fa-files-o fa-3x"></i>
                 <div class="info">
-                    <h4>Plugins</h4>
-                    <p><b>{{$plugins}}</b></p>
+                    <h4>App Designs</h4>
+                    <p><b>{{$appdesigns}}</b></p>
                 </div>
             </div>
         </div>
@@ -38,8 +38,8 @@
             <div class="widget-small danger coloured-icon">
                 <i class="icon fa fa-star fa-3x"></i>
                 <div class="info">
-                    <h4>Themes</h4>
-                    <p><b>{{$themes}}</b></p>
+                    <h4>Art & Illustration</h4>
+                    <p><b>{{$artandillustration}}</b></p>
                 </div>
             </div>
         </div>

@@ -1,13 +1,10 @@
-import React ,{Component, Fragment} from 'react';
+ import React ,{Component, Fragment} from 'react';
 import { Link, Redirect,useHistory} from "react-router-dom";
-import {Button ,Container ,Row,Col,Card,Tabs,Tab,Sonnet,Form, Navbar,Nav,NavDropdown,Image,Modal } from 'react-bootstrap';
-
+import { Button ,Container ,Row,Col, Card , Tabs , Tab , Sonnet , Form , Navbar , Nav , NavDropdown , Image , Modal } from 'react-bootstrap';
 import './carousels.css';
 
 
-
-
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import icon from '../../../../assets/img/icon.png'; 
 import Select from "react-select-search";
 
@@ -29,26 +26,64 @@ import { Carousel } from 'react-responsive-carousel';
 class Carouselslider extends Component {
 
 
+
   constructor(props) {
       super(props);
-       const rawOptions = [];
-       Object.entries(categories).map(([key, value]) => { rawOptions.push({value: value ,name:key }) });
+      
+      const rawOptions = [];
+      Object.entries(categories).map(([key, value]) => { rawOptions.push({value: value ,name:key }) });
 
       const rawkeywords = [];
       Object.entries(keywords).map(([key, value]) => { rawkeywords.push({value: value ,label:key }) });
+
+      const alreadyCalled = '';
 
       this.state = {
           resources:[],
           type: 'group',
           searchKeywords:"",
-          selectedType : 1,
+          selectedType : '1',
           suggestions : [],
           suggestedKeywords: rawkeywords,
-          options:rawOptions
+          options:rawOptions,
+          redirect : null,
+          location : null,
+          logoDesignLocation :{
+            pathname:'/search',
+              state: {
+              keywords:[ {label:'All industries',value:'All industries'} ],
+              type:2
+            }
+          },
+          animationLocation :{
+            pathname:'/search',
+            state: {
+              keywords:[{label:'All industries',value:'All industries'}],
+              type:6
+            }
+          },
+          appDesignLocation : {
+            pathname:'/search',
+              state: {
+              keywords:[ {label:'All industries',value:'All industries'} ],
+              type:4
+            }
+          },
+          webDesignLocation: {
+            pathname:'/search',
+            state: {
+              keywords:[{label:'All industries',value:'All industries'}],
+              type:3
+           }
+          }
+
       };
-      const alreadyCalled = '';
+
 
   }
+
+
+      
 
 
   /**
@@ -67,10 +102,7 @@ class Carouselslider extends Component {
   //   }
   // }
 
-  handleChangeType = (e) => {
-    this.setState({'selectedType':e})
-  }
-
+ 
   // handleTypedKeywords = (e,action) => {
     
   //   if( action.action == 'menu-close' || action.action == 'input-blur' ){
@@ -101,47 +133,11 @@ class Carouselslider extends Component {
       //     //this.setState({searchKeywords:null});
       // }
   
-  
-/**
- * { When Search button , enter in search , option is clicked }
- */   
-      /**
-       * { search button clicked }
-       */
-      handleSearhClick = () => {
-        var {searchKeywords , selectedType } = this.state;
-        
-        if(searchKeywords.value !== "" ){
-            this.setState({redirect:"/search"});
-        } 
-      }
+  routeTo = (location) => {
+    this.setState({redirect:true,location:location});
+  }
 
-      /**
-       * when any option selected form suggestions}
-       * @param  e  <type> Object {e is option selected } 
-       */
-      handleChangeKeywords = (e,action) => {
-          this.setState({searchKeywords:e});
-          // if(e.value !== "" || e.value !== undefined){
-          //     this.setState({redirect : "/search"})  
-          // }
-      }
-
-      /**
-      * { when enter (keycode=13) is clicked }
-      *
-      * @param {<type>}  e { e is keyPressed }
-      */
-      handleEnterKey = (e) => {
-       if(e.keyCode === 13){
-            const {searchKeywords ,selectedType} = this.state;
-            if(searchKeywords != "" && searchKeywords != null && selectedType != null && selectedType != "" ){
-             
-                this.setState({redirect : "/search"}) 
-            }
-        }
-      }
-
+   
   /**
    * Renders the Component.
    *
@@ -149,70 +145,19 @@ class Carouselslider extends Component {
   */
   render() {
     
+    const {webDesignLocation,appDesignLocation,logoDesignLocation,animationLocation} = this.state;
+
     if( this.state.redirect ){
-      var { searchKeywords , selectedType } = this.state;
-      return <Redirect push
-              to={{
-                  pathname: this.state.redirect,
-                  state: { keywords: searchKeywords , type: selectedType  }
-              }}
-              />
+     
+      return <Redirect push to={this.state.location} />
     }
 
-    const {suggestions,suggestedKeywords} = this.state;
-    
 
     return (
+
+
     <span>    
-    <Container fluid className="top-header-kk">
-                  <Row>
-                        <Col md={1} sm={12} className="home-link-kk home-btn">
-                        
-                        <Navbar>
-                              <Navbar.Brand href="#home">Home</Navbar.Brand>
-                        </Navbar>
-                        
-                        </Col>
-                        <Col md={9} sm={12} className="formfirstcontent topheader-kk">
-                       
-                          <Row>
-                             <Col lg={3} xs={12} md={12} className="selecttype4"> 
-                              <Select
-                                name="type" 
-                                placeholder="Select Type"
-                                value={this.state.selectedType}
-                                options={this.state.options}
-                                
-                                onChange={ (e) => {this.handleChangeType(e)}}
-                              />
-                            </Col>
-                            <Col lg={9} xs={12} md={12} className="searchmain-home"> 
-                              <SelectSearch 
-                                
-                                onKeyDown={ e => {this.handleEnterKey(e)} }
-                                onChange={  (e,action)  => {this.handleChangeKeywords(e,action)}} 
-                                options={this.state.suggestedKeywords} 
-                                placeholder={"Type Your keywords"} 
-                                className="form-control"
-                                isMulti={"True"}
-                              />
-                             
-                            </Col>
-                            <FontAwesomeIcon icon={faSearch}  onClick = {this.handleSearhClick} className="getbtn"/>
-                          </Row>
-                              
-                          </Col>
-                
-                          <Col md={1} sm={12} className="home-link-kk">
-                        
-                            <Navbar>
-                                  <Navbar.Brand href="#dashboard">Dashboard</Navbar.Brand>
-                            </Navbar>
-                            
-                        </Col>
-                
-                        </Row>
-        </Container>
+    
         <Container>
               <Row>
                      <Col md={2}></Col>   
@@ -226,7 +171,7 @@ class Carouselslider extends Component {
         
         <Container className="majorsearch">
               <Row>
-                    <Col md={3} className="majorsearch-col">
+                    <Col md={3}  className="majorsearch-col" onClick={() => this.routeTo(webDesignLocation) }>
                         <Card className="majorsearch-card">
                           <Card.Img variant="top" src="https://i.pinimg.com/564x/3b/3f/8a/3b3f8a6c0085a49a592ccbeaa1dcbc96.jpg" />
                           <Card.Body>
@@ -234,7 +179,7 @@ class Carouselslider extends Component {
                           </Card.Body>
                         </Card>
                     </Col>   
-                   <Col md={3} className="majorsearch-col">
+                   <Col md={3} className="majorsearch-col" onClick={() => this.routeTo(logoDesignLocation) }>
                         <Card className="majorsearch-card">
                           <Card.Img variant="top" src="https://i.pinimg.com/564x/12/c8/97/12c8970c0085584d34d098acd79973d6.jpg" />
                           <Card.Body>
@@ -242,7 +187,7 @@ class Carouselslider extends Component {
                           </Card.Body>
                         </Card>
                     </Col>   
-                    <Col md={3} className="majorsearch-col">
+                    <Col md={3} className="majorsearch-col" onClick={() => this.routeTo(appDesignLocation) }>
                         <Card className="majorsearch-card">
                           <Card.Img variant="top" src="https://i.pinimg.com/564x/a4/1b/b5/a41bb54228288ae7070f8d1283a2acfa.jpg" />
                           <Card.Body>
@@ -250,11 +195,13 @@ class Carouselslider extends Component {
                           </Card.Body>
                         </Card>
                     </Col>   
-                    <Col md={3} className="majorsearch-col">
+                    <Col md={3} className="majorsearch-col" onClick={() => this.routeTo(animationLocation) }>
                         <Card className="majorsearch-card">
                           <Card.Img variant="top" src="https://i.pinimg.com/564x/1a/01/52/1a015293a3c37f8330a345cce945b5c9.jpg" />
                           <Card.Body>
+
                             <Card.Title>Animation</Card.Title>
+                            
                           </Card.Body>
                         </Card>
                         
@@ -297,7 +244,7 @@ class Carouselslider extends Component {
                           <a href="https://www.google.com/" target="blank">
                             <svg aria-hidden="true" focusable="false" 
                             data-prefix="fas" data-icon="external-link-alt" 
-                            class="svg-inline--fa fa-external-link-alt fa-w-16" 
+                            className="svg-inline--fa fa-external-link-alt fa-w-16" 
                             role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                             <path fill="currentColor" 
                             d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,

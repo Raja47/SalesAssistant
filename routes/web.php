@@ -44,7 +44,9 @@ Route::group(['prefix'  =>  'admin'], function (){
           Route::post('files/upload', 'Cms\FileController@upload')->name('admin.resources.files.upload');
            Route::get('files/{id}/delete', 'Cms\FileController@delete')->name('admin.resources.files.delete');
            Route::get('files/show', 'Cms\FileController@show')->name('admin.resources.files.show');
-         
+          
+
+           Route::get('image/scrap', 'Cms\ImageController@imageScrap')->name('admin.resources.image.scrap'); 
         });
 
 
@@ -57,7 +59,7 @@ Route::group(['prefix'  =>  'admin'], function (){
             Route::get('/{id}/delete', 'Cms\CategoryController@delete')->name('admin.categories.delete');
         });
 
-         Route::group(['prefix'  =>   'keywords'], function() {
+        Route::group(['prefix'  =>   'keywords'], function() {
             Route::get('/', 'Cms\KeywordController@index')->name('admin.keywords.index');
             Route::get('/create', 'Cms\KeywordController@create')->name('admin.keywords.create');
             Route::post('/store', 'Cms\KeywordController@store')->name('admin.keywords.store');

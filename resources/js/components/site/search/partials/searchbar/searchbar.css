@@ -244,13 +244,7 @@ width: 100%;
     
 }
 
-.searhresultsec .card img {
-    height: 100%;
-    border-top-right-radius: 0 !IMPORTANT;
-    border-top-left-radius: 0 !IMPORTANT;
-    transform: translateY(34px);
-    
-}
+
 
 
 .searhresultsec.row {

@@ -3,9 +3,9 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
         <div class="sidebar-brand-icon">
-         {{ 'Resource Manager' }}
+         {{ config('app.name') }}
         </div>
-        <div class="sidebar-brand-text mx-3 d-sm-block d-md-none d-lg-none">{{ 'Resoure Manager' }}</div>
+        <div class="sidebar-brand-text mx-3 d-sm-block d-md-none d-lg-none">{{ config('app.name') }}</div>
       </a>
 
       <!-- Divider -->

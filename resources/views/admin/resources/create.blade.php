@@ -36,11 +36,10 @@
                                         <div class="form-group">
                                             <label class="control-label" for="categories">Category*</label>
                                             <select name="resource_category_id" id="categories" class="form-control" placeholder="select category or domain">
-                                                <option value="">Select Domain or Industry<option>
+                                                <option value="">Select Domain or Industry</option>
                                                 @foreach($categories as $category)
-                                                    @if($category->parent){
+                                                    @if($category->parent)
                                                     <option value="{{ $category->id }}">{{ $category->title }}</option>
-                                                    }
                                                     @endif
                                                 @endforeach
                                             </select>
@@ -48,8 +47,16 @@
                                     </div>
                                 </div>
                                     
-                               
-                                
+                               <div class="row" id="demo_url_div">
+                                    <div class="col-md-12">
+                                         <div class="form-group">
+                                            <label class="control-label" for="demo_url">Demo Url <span class="m-l-5 text-danger"> *</span></label>
+                                            <input class="form-control @error('demo_url') is-invalid @enderror" type="text" name="demo_url" id="demo_url" value="{{ old('demo_url') }}" required/>
+                                          
+                                            @error('demo_url') {{ $message }} @enderror
+                                        </div>
+                                    </div>
+                               </div>     
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -61,9 +68,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                                
-                                                               
+                                </div>                        
                                 
                             </div>
                            
@@ -100,6 +105,8 @@
             </div>
         </div>
     </div>
+
+
 @endsection
 
 @push('scripts')
@@ -111,16 +118,23 @@
         Dropzone.autoDiscover = false;
 
         $( document ).ready(function() {
-           
-                                               
-             $("#keywords").select2({
-                tags: true,
-                tokenSeparators: [',']
-            });
             
-             $('#resource_cat_id').on('change',function (){
+            var uploadMultiple = true;
 
-             });
+            
+            $('#demo_url_div').hide(); 
+                                               
+            $("#keywords").select2({ tags : true , tokenSeparators : [','] } );
+            
+            $('#categories').on('change',function (){
+                if( $(this).val() == 3){
+                   $('#demo_url_div').show();   
+                   uploadMultiple = false;  
+                }else{
+                   $('#demo_url_div').hide();     
+                   uploadMultiple = true;
+                }
+            });
 
             let myDropzone = new Dropzone("#dropzone", {
                 paramName: "image",
@@ -128,7 +142,7 @@
                 maxFilesize: 300,
                 acceptedFiles:'image/*',
                 parallelUploads: 10,
-                uploadMultiple: true,
+                uploadMultiple: uploadMultiple,
                 timeout:30000,
                 url: "{{ route('admin.resources.images.upload') }}",
                 autoProcessQueue: false,
@@ -141,7 +155,7 @@
 
             myDropzone.on("queuecomplete", function (file) {
                 // window.location.reload();
-                showNotification('Completed', 'All product images uploaded', 'success', 'fa-check');
+                showNotification('Completed', 'Resource images uploaded', 'success', 'fa-check');
                 
                 setTimeout(function(){ location.reload(); }, 3000);
                 
@@ -151,8 +165,9 @@
                 
                 var categories =  $('#categories').val();
                 var keywords   =  $('#keywords').val();
-
-                if (myDropzone.files.length === 0 || categories == '' ||  categories == null || keywords == '' ||  keywords == null) {
+                var demo_url_div   =  $('#demo_url_div').is(':visible');
+                var demo_url  = $('#demo_url').val();
+                if (myDropzone.files.length === 0 || categories == '' ||  categories == null || keywords == '' ||  keywords == null || (demo_url_div && (demo_url == '' || demo_url==null)) ) {
                     showNotification('Error', 'Please select files to upload.', 'danger', 'fa-close');
                 } else {
                     myDropzone.processQueue();
@@ -164,6 +179,10 @@
                 
                 formData.append('resource_category_id', $('#categories').val() );
                 formData.append('keywords', $('#keywords').val() );
+                if($('#demo_url_div').is(':visible')){
+                     formData.append('demo_url', $('#demo_url').val() );
+                }
+               
             });
             function showNotification(title, message, type, icon)
             {

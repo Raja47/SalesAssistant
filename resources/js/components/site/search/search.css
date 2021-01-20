@@ -47,7 +47,9 @@
     justify-content: center;
     flex-direction: column;
     cursor: pointer;
-        top: 34px;
+        top: 0px;
+        top: 0px;
+    border-radius: 25px;
 }
 
 
@@ -188,3 +190,107 @@
 
 
 
+/*new*/
+
+
+.ReactModal__Overlay {
+    opacity: 0;
+    transition: opacity 2000ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open{
+    opacity: 1;
+}
+
+.ReactModal__Overlay--before-close{
+    opacity: 0;
+}
+
+.ReactModalPortal img {
+    max-width: 800px;
+    width: 100%;
+    /* min-height: 200px; */
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    min-height: 100%;
+}
+
+.ReactModal__Overlay {
+    background-color: rgb(0 0 0 / 87%) !IMPORTANT;
+    z-index: 9;
+}
+.ReactModal__Content.ReactModal__Content--after-open span {
+    background: transparent;
+    border: 0;
+    font-size: 23px;
+    color: white;
+        cursor: pointer;
+}
+
+.ReactModal__Content.ReactModal__Content--after-open span svg.svg-inline--fa.fa-arrow-right{
+    position: absolute;
+    top: 50%;
+    right: 5px;
+}
+
+.ReactModal__Content.ReactModal__Content--after-open span svg.svg-inline--fa.fa-arrow-left{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+}
+
+.ReactModal__Content.ReactModal__Content--after-open span svg.svg-inline--fa.fa-times{
+    color: black;
+    position: absolute;
+    top: 62px;
+    right: 62px;
+}
+
+.ReactModal__Content.ReactModal__Content--after-open {
+    padding: 40px !IMPORTANT;
+    background: transparent !IMPORTANT;
+    border: 0px !IMPORTANT;
+    
+}
+
+    
+
+
+.search-result-final-kk .card img {
+    border: none;
+    border-radius: 25px;
+    -o-object-fit: cover;
+    object-fit: cover;
+    background-color: transparent;
+    border: 1px solid rgb(128 128 128 / 12%);
+    height: 300px;
+    width: 100%;
+    transform: translateY(0px);
+    border-radius: 25px !IMPORTANT;
+}
+
+button.demo-button.rajaex-kk.btn.btn-primary:hover {
+    background: white;
+    color: black;
+}
+
+button.demo-button.rajaex-kk.btn.btn-primary {
+    margin: 0 auto;
+    text-align: center;
+    display: inline-block;
+    text-align: center;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    float: none;
+    /* margin-top: 50px; */
+    padding: 6px 54px;
+    background: transparent;
+    border-color: white;
+    font-size: 18px;
+    margin: 0 auto !important;
+    display: block !important;
+    margin-top: 36px !important;
+    font-weight: bold;
+}

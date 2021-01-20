@@ -7,22 +7,17 @@ import axios from 'axios';
 import './../searchsingle/searchsingle.css';
 import searchresult from '../../assets/img/searchresult.jpg'; 
 import { Player , ControlBar } from 'video-react'
-import { getResourceAction, }  from "./../../../actions/resourceActions";
 import moment from "moment"
 // get our fontawesome imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faHome , faDownload ,faExternal} from "@fortawesome/free-solid-svg-icons";
-import Searchbar from '../search/partials/searchbar/';
-import {MoonLoader} from "react-spinners";
-import { css } from "@emotion/core";
-import Header from './../../site/partials/header/header';
-
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 
+import Reactmodal from 'react-modal';
 
-class Searchsingle extends Component{
+class Modal extends Component{
 
   constructor(props) {
         
@@ -33,18 +28,14 @@ class Searchsingle extends Component{
         };
 
         
-        this.handler = this.handler.bind(this); 
+       
   }
-
-
 
   componentDidMount() {
-      const values = queryString.parse(this.props.location.search);
-        if(values.id != null || values.id != undefined){
-          this.setState({loading:true});    
-          this.props.dispatch(getResourceAction(values.id));  
-        }
+      this.setState({ resource : this.props.resource });
   }
+
+  
 
   redirectToSearch = (keywords) => {
       
@@ -57,14 +48,6 @@ class Searchsingle extends Component{
         }
       }
 
-  }
-
-  componentDidUpdate(prevProps) {
-   
-    if (this.props.resource !== prevProps.resource) {
-        this.setState({loading:false});
-        this.setState({resource:this.props.resource});
-    }
   }
 
    
@@ -81,7 +64,6 @@ class Searchsingle extends Component{
       }else if(resourceType == 'image-photo' || resourceType == 'image-vector' || resourceType == 'image-illustration' ){
           var downloadable_type  = "image";
           url = app_url+"/site/file/download/"+downloadableType+"/"+resource.resource.images[0].id;
-        
       }
       
       if( resource.resource?.downloads){
@@ -100,17 +82,7 @@ class Searchsingle extends Component{
       
   } 
   
-  handler = (types ,keywordss) => {
-     
-    const location = {
-      pathname:"/search",
-      state:{
-        type:types,
-        keywords:keywordss
-      }
-    }
-    this.setState({redirect:location});
-  }   
+   
  
   render () {
 
@@ -123,26 +95,8 @@ class Searchsingle extends Component{
     if( resource == '' || resource == undefined){
         return (
             <div className="singleresultfile">  
-
-                <span className="search-single-content-div">
-                    <Searchbar handler={this.handler}  />
-                    <div className="loader-results">
-                        <MoonLoader
-                          size={150}
-                          color={"#123abc"}
-                          loading={this.state.loading}
-                        />
-                    </div>
-                </span>
-                <br/>
-                <Container>
-                
-                    <Row className="searhresultsingle">
-                        <div className="loader-results">
-                        
-                        </div>
-                    </Row>
-                </Container>
+                <h2>Any Error</h2>
+              
              </div> 
         );
     }else{
@@ -151,9 +105,12 @@ class Searchsingle extends Component{
       
     return (
      
+     <ReactModal 
 
+
+     > 
      <div className="singleresultfile">  
-          <Header/>
+          
           <Container>
 
           <br/>
@@ -162,42 +119,29 @@ class Searchsingle extends Component{
              
               <Col lg={8} className="searhresultsingleimg">
                 
-                {/*
-                {  
-                    (resourceType == "video" || resourceType == "Video")  && <Player  autoPlay={true} poster={resource.images?.[0]?.url  ?  (asset_url()+"/resources/images/small/"+ ( resource.images?.[0]?.url))  : resource.image }>
-                      <source src={ resource.files?.[0]?.url ?  (asset_url()+"/resources/files/"+(resource.files?.[0]?.url) ) : resource.preview_video_url } />
-                      <ControlBar autoHide={false} />
-                    </Player>
-                }
+                  
+                  {  
+                      (resourceType == "animation" || resourceType == "Video")  && <Player  autoPlay={true} poster={resource.images?.[0]?.url  ?  (asset_url()+"/resources/images/medium/"+ ( resource.images?.[0]?.url))  : resource.image }>
+                        <source src={ resource.files?.[0]?.url ?  (asset_url()+"/resources/files/"+(resource.files?.[0]?.url) ) : resource.preview_video_url } />
+                        <ControlBar autoHide={false} />
+                      </Player>
+                  }
+                 
                 
-                { 
-                
-                (resourceType != "video" && resourceType != "Video")  &&  
-                  <Image src={ resource.images?.[0]?.url  ?  (asset_url()+"/resources/images/small/"+ ( resource.images?.[0]?.url))  :   ( resource.image ??    (asset_url()+"/resources/images/small/"+"not-found.png"  ))} rounded />
-                }
-                
-                
-                                    { ( (resourceType == "plugin" || resourceType == "theme" ) 
-                                && resource.demo_url   != null ) && <div className="col-md-12"><Button className="demo-button rajaex-kk" variant="primary" onClick={() => this.handleDemo(resource.demo_url)}  >Demo<FontAwesomeIcon icon={faEye} /></Button></div> }
+                  {
+                  (resourceType == "logo" && resourceType == "web-design" || resourceType == "" || resourceType == "app-design" || resourceType == "art-illustration" )  &&  
+                    <Image src={ resource.images?.[0]?.url  ?  (asset_url()+"/resources/images/medium/"+ ( resource.images?.[0]?.url))  :   ( resource.image ??    (asset_url()+"/resources/images/medium/"+"not-found.png"  ))} rounded />
+                  }
                   
                   
-                  */}
-                  
-                  <Carousel>
-                        <div>
-                            <img src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
-                            <p className="legend">Legend 1</p>
-                        </div>
-                        <div>
-                            <img src="http://react-responsive-carousel.js.org/assets/3.jpeg" />
-                            <p className="legend">Legend 2</p>
-                        </div>
-                        <div>
-                            <img src="http://react-responsive-carousel.js.org/assets/5.jpeg" />
-                            <p className="legend">Legend 3</p>
-                        </div>
-                    </Carousel>
+                  { 
+                    ( (resourceType == "web-design") 
+                      && resource.demo_url   != null ) && <div className="col-md-12"><Button className="demo-button rajaex-kk" variant="primary" onClick={() => this.handleDemo(resource.demo_url)}  >Demo<FontAwesomeIcon icon={faEye} /></Button></div> 
+                  }
+              
               </Col>
+
+
               <Col lg={4}  className="badgemain">
 
               <h2>{"App Description"}</h2>
@@ -205,7 +149,7 @@ class Searchsingle extends Component{
               <hr/>
                    { resource.keywords != undefined  && 
                         resource.keywords.map((keyword,i) => {
-                             if(i >= 10){
+                             if(i >= 5){
                                  return ""
                              }    
                              return <Link to={() => this.redirectToSearch(keyword) } key={keyword}>
@@ -234,55 +178,43 @@ class Searchsingle extends Component{
                    
               </Col>
 
-              <Col lg={8} md={8} className="searhresultsinglecontent">
-                    
-                    <h2>{resource.title}</h2>
-                    <p>{resource.description}</p>
-                                 
-              </Col>
 
 
               </Row>
 
-              <Row className="relatedimgs">
-               
-                {/*{() => {
-                    const images = resource.resource.images;
-                      if(images == []){
-                        return (
-                          <div >
-                              <Col md={3}>
-                                  <Card >
-                                    <Card.Img variant="top" src={searchresult} />        
-                                </Card>
-                              </Col>
-                          </div>
-                        );
-                      }else
-                      {
-                        images.map( (image , i) => {
-                          return  (<div><Col md={3}>
-                            <Card >
-                                <Card.Img variant="top" src={image.url }  />
-         
-                            </Card>
-                          </Col></div>);
-                        } )  
-                    }
-                }}*/}
-              </Row>
+             
          </Container>
                  
       </div> 
+
+      </ReactModal>
     );
   }
   }
 }
 
 const mapStateToProps = (state) => {
-  return {
-    resource : state.resourceReducer.resource
-  }
+  return ""
 }
 
+
+
 export default connect(mapStateToProps)(Searchsingle);
+
+
+ {/*
+                  <Carousel>
+                        <div>
+                            <img src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
+                            <p className="legend">Legend 1</p>
+                        </div>
+                        <div>
+                            <img src="http://react-responsive-carousel.js.org/assets/3.jpeg" />
+                            <p className="legend">Legend 2</p>
+                        </div>
+                        <div>
+                            <img src="http://react-responsive-carousel.js.org/assets/5.jpeg" />
+                            <p className="legend">Legend 3</p>
+                        </div>
+                    </Carousel>
+                  */}

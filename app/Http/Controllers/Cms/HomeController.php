@@ -17,12 +17,12 @@ class HomeController extends Controller
     public function index()
     {   
 
-        $images = Resource::whereIn('resource_category_id',['1','5','6'])->count();
-        $videos = Resource::where('resource_category_id',2)->count();
-        $plugins= Resource::where('resource_category_id',3)->count();
-        $themes = Resource::where('resource_category_id',4)->count();
+        $logos = Resource::where('resource_category_id',2)->count();
+        $webdesigns = Resource::where('resource_category_id',3)->count();
+        $appdesigns = Resource::where('resource_category_id',4)->count();
+        $artandillustration = Resource::where('resource_category_id',5)->count();
 
-        return view('admin.dashboard.index' , compact('images','videos','plugins','themes'));
+        return view('admin.dashboard.index' , compact('logos','webdesigns','appdesigns','artandillustration'));
     }
 
     /**

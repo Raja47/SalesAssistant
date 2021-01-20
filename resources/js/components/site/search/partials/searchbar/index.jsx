@@ -11,25 +11,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { suggestResourceAction }  from "../../../../../actions/resourceActions"; 
 
 
-
-
 class Searchbar extends Component {
 
   /**
    * Constructs a new instance.
    *
-   * @param      {<type>}  props   The properties
+   * @param {<type>}  props The properties
    */
   constructor(props) {
+
       super(props);
 
       const rawOptions = [];
-      Object.entries(categories).map(([key, value]) => { rawOptions.push({value: value ,name:key }) });
+      Object.entries(categories).map(([key, value]) => { rawOptions.push({ value: value ,name:key } ) });
 
       const rawkeywords = [];
-      Object.entries(keywords).map(([key, value]) => { rawkeywords.push({value: value ,label:key }) });
-      
-      
+      Object.entries(keywords).map(([key, value]) => { rawkeywords.push({ value: value ,label:key} ) });
       
       this.state = {
           resources:[],
@@ -41,14 +38,12 @@ class Searchbar extends Component {
           suggestedKeywords:rawkeywords,
           options:rawOptions
       };
-
-    
       
       var alreadyCalled = '';
   }
 
   componentDidMount() {
-  
+     
   }
 
   /**
@@ -60,8 +55,9 @@ class Searchbar extends Component {
   componentDidUpdate(prevProps) {
     
     if(this.props.searchedFor !== prevProps.searchedFor ){
-        console.log(this.props.searchedFor.keywords);
+   
         this.setState({searchKeywords:this.props.searchedFor.keywords,selectedType:this.props.searchedFor.type});
+        console.log(this.props.searchedFor.type);
     }
   
   }
@@ -79,7 +75,7 @@ class Searchbar extends Component {
        */
       handleChangeType = (e) => {
           
-        this.setState({'selectedType':e});
+        this.setState({selectedType:e});
         
         // const keywords = this.state.searchKeywords; 
         // if(keywords != "" && keywords != undefined ){
@@ -159,9 +155,9 @@ class Searchbar extends Component {
        */
       handleEnterKey = (e) => {
         //console.log('enter key');
-        console.log(this.state.inputValue);
+     
         if(this.state.inputValue == '' && e.keyCode === 13 ){
-            
+      
             const {searchKeywords , selectedType } = this.state;
             if(searchKeywords !== "" && searchKeywords != null && searchKeywords != [] && selectedType!= undefined && selectedType!= null && selectedType!= ""){
                 this.props.handler(selectedType,searchKeywords);
@@ -177,61 +173,67 @@ class Searchbar extends Component {
   render() {
      const {selectedType, searchKeywords} = this.state;
      const {suggestions,suggestedKeywords} = this.state;
-    
+   
    
     return (
-      <Row className="slidermain toppppp">
-        
-        <Col md={12}>
-    
-        <Row>
-        <Col md={2}></Col>
-        <Col md={8} className="formfirstcontent searchresulttopbar">
-         
-        <Row>
-          <Col lg={3} xs={12} md={12} className="selecttype4"> 
-
-          <Select
-            name="types" 
-            placeholder="Select Type" 
-            options={this.state.options}
-            onChange={ e => {this.handleChangeType(e)}}
-            value={this.state.selectedType}
-          />
-          </Col>
-
-          
-          <Col lg={9} xs={12} md={12} className="searchbarjsx searchmain-home"> 
-              <SelectSearch
-                name="keywords"
-                onInputChange={(e,action) => {this.handleTypedKeywords(e,action)}}
-                onKeyDown={e => {this.handleEnterKey(e)}}
-                onChange={(e)  =>  {this.handleChangeKeywords(e)}} 
-                options={suggestedKeywords}
-                placeholder={"Type Keywords"} 
-                className="form-control"
-                isMulti={'True'}
-                value={this.state.searchKeywords}
+      <span>
+        <Container fluid className="top-header-kk">
+                  <Row>
+                        <Col md={1} sm={12} className="home-link-kk home-btn">
+                        
+                        <Navbar>
+                              <Navbar.Brand href="/">Home</Navbar.Brand>
+                        </Navbar>
+                        
+                        </Col>
+                        <Col md={9} sm={12} className="formfirstcontent topheader-kk">
+                       
+                          <Row>
+                             <Col lg={3} xs={12} md={12} className="selecttype4"> 
+                              <Select
+                                name="type" 
+                                placeholder="Select Type"
+                                value={ this.state.selectedType }
+                                options={ this.state.options }
+                                onChange={ (e) => {this.handleChangeType(e)}}
+                              />
+                            </Col>
+                            <Col lg={9} xs={12} md={12} className="searchmain-home"> 
+                              <SelectSearch 
+                                
+                                name="keywords"
+                                onInputChange={(e,action) => {this.handleTypedKeywords(e,action)}}
+                                onKeyDown={e => {this.handleEnterKey(e)}}
+                                onChange={(e)  =>  {this.handleChangeKeywords(e)}} 
+                                options={suggestedKeywords}
+                                placeholder={"Type Keywords"} 
+                                className="form-control"
+                                isMulti={'True'}
+                                value={ this.state.searchKeywords}
+                                inputValue={this.state.inputValue}
+                              />
+                             
+                            </Col>
+                            <FontAwesomeIcon icon={faSearch}  onClick = {this.handleSearhClick} className="getbtn"/>
+                          </Row>
+                              
+                          </Col>
                 
+                          <Col md={1} sm={12} className="home-link-kk">
+                        
+                            <Navbar>
+                                  <Navbar.Brand href="/admin/login">Dashboard</Navbar.Brand>
+                            </Navbar>
+                            
+                        </Col>
                 
-                inputValue={this.state.inputValue}
-                //onFocus = {e => this.handleOnFocus(e) }
-                
-            />
-
-              
-          </Col>
-          <FontAwesomeIcon icon={faSearch}  onClick = {this.handleSearhClick} className="getbtn"/>
-        </Row>
-             
-              
-        </Col>
-        <Col md={2}></Col>
-        </Row>
-         
-        </Col>
+                        </Row>
+        </Container>
        
-      </Row>
+      </span>
+
+
+      
     );
   }
   
@@ -243,9 +245,7 @@ class Searchbar extends Component {
  */
 function mapStateToProps(state){
    return {  
-        
         searchedFor : state.resourceReducer.searchedFor,
-        
     }
  }
 
